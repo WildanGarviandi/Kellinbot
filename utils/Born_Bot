@@ -1,0 +1,17 @@
+var config = require('../config');
+var token = config.telegram_bot_token;
+
+var Bot = require('node-telegram-bot-api');
+var bot;
+
+if(process.env.NODE_ENV === 'production') {
+    bot = new Bot(token);
+    bot.setWebHook('https://my-web-root.com/' + bot.token);
+}
+else {
+    bot = new Bot(token, { polling: true });
+}
+
+console.log('bot server started...');
+
+module.exports = bot;
